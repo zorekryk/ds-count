@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Лічильник Смертей Dark Souls</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Dark Souls</h1>
+      <!-- <p class="subtitle"></p> -->
+      <div class="total-deaths-section">
+        <h2>Загальна кількість смертей</h2>
+        <span id="total-deaths-count" class="death-count">0</span>
+        <div class="button-group">
+          <button id="increment-total-btn" class="btn increment-btn"
+            >Смерть</button
+          >
+          <button id="decrement-total-btn" class="btn decrement-btn"
+            >Помилка</button
+          >
+        </div>
+      </div>
+
+      <div class="boss-section">
+        <h2>Смерті від босів</h2>
+        <div class="add-boss-form">
+          <input
+            type="text"
+            id="boss-name-input"
+            placeholder="Ім'я нового боса"
+          />
+          <button id="add-boss-btn" class="btn add-btn">Додати Боса</button>
+        </div>
+        <ul id="boss-list"> </ul>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
