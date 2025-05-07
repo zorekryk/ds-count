@@ -13,11 +13,6 @@
 *::after {
   box-sizing: border-box;
 }
-.metamorphous-regular {
-  font-family: "Metamorphous", serif;
-  font-weight: 400;
-  font-style: normal;
-}
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -154,7 +149,6 @@ h2 {
   justify-content: space-between;
   align-items: center;
   border-left: 0.5rem solid var(--color-primary);
-  flex-wrap: wrap;
   gap: 0.5rem;
 }
 .boss-info {
@@ -177,7 +171,7 @@ h2 {
   gap: 0.5rem;
 }
 .boss-button-group button {
-  padding: 0.75rem 0.75rem;
+  padding: 0.45rem 0.45rem;
   border-radius: 0.75rem;
   font-size: 18px;
 }
@@ -202,7 +196,6 @@ h2 {
   background: #900;
 }
 
-/* 1. Strike‑through & grayscale */
 .boss-item.locked {
   background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
   border-left-color: var(--color-locked);
@@ -212,14 +205,17 @@ h2 {
 .boss-item.locked .boss-name {
   color: #888;
   position: relative;
+  /* text-decoration: line-through;
+  text-decoration-color: var(--color-death);
+  text-decoration-thickness: 2px; */
 }
 .boss-item.locked .boss-name::after {
   content: "";
   position: absolute;
-  top: 50%;
-  left: -5%;
-  width: 110%;
-  height: 2px;
+  top: 45%;
+  left: -2%;
+  width: 105%;
+  height: 3px;
   background: var(--color-primary);
   transform: rotate(-5deg);
   border-radius: 25%;
