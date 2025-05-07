@@ -4,46 +4,75 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Лічильник Смертей Dark Souls</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/fonts.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link
       href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Metamorphous&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <div class="container">
       <h1>Dark Souls</h1>
-      <!-- <p class="subtitle"></p> -->
       <div class="total-deaths-section">
         <h2>Загальна кількість смертей</h2>
-        <span id="total-deaths-count" class="death-count">0</span>
+        <span id="total-deaths-count" class="death-count" aria-live="polite"
+          >0</span
+        >
         <div class="button-group">
-          <button id="increment-total-btn" class="btn increment-btn"
+          <button
+            id="increment-total-btn"
+            class="btn increment-btn"
+            aria-label="Додати одну смерть"
             >Смерть</button
           >
-          <button id="decrement-total-btn" class="btn decrement-btn"
-            >Помилка</button
+          <button
+            id="decrement-total-btn"
+            class="btn decrement-btn"
+            aria-label="Вилучити одну смерть"
+            >Відняти</button
           >
         </div>
       </div>
-
       <div class="boss-section">
         <h2>Смерті від босів</h2>
-        <div class="add-boss-form">
+        <form id="add-boss-form" class="add-boss-form" onsubmit="return false;">
           <input
             type="text"
             id="boss-name-input"
             placeholder="Ім'я нового боса"
           />
-          <button id="add-boss-btn" class="btn add-btn">Додати Боса</button>
-        </div>
-        <ul id="boss-list"> </ul>
+          <button id="add-boss-btn" class="btn add-btn" type="submit"
+            >Додати Боса</button
+          >
+        </form>
+        <ul id="boss-list"></ul>
       </div>
     </div>
+    <div
+      id="message"
+      role="alert"
+      style="
+        position: fixed;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.5rem 1rem;
+        background: #333;
+        color: #fff;
+        border-radius: 0.5rem;
+        opacity: 0;
+        transition: opacity 0.3s;
+      "
+    ></div>
 
-    <script src="script.js"></script>
+    <script src="script/script.js"></script>
   </body>
 </html>
