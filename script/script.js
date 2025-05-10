@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   incTotalBtn.addEventListener("click", () => changeDeaths(null, +1));
   decTotalBtn.addEventListener("click", () => changeDeaths(null, -1));
-  addBossForm.addEventListener("submit", () => {
+  addBossForm.addEventListener("submit", (e) => {
+    e.preventDefault();
     const name = bossNameInput.value.trim();
     if (!name) return showMessage("Введіть ім'я боса");
     if (data.bosses.some((b) => b.name.toLowerCase() === name.toLowerCase()))
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function deleteBoss(idx) {
     const boss = data.bosses[idx];
-    if (!boss) return;
+    if (!boss || boss.locked) return;
     const ok = confirm(
       `Ви дійсно хочете видалити боса “${boss.name}”? Цю дію не можна буде скасувати.`
     );
@@ -69,11 +70,20 @@ document.addEventListener("DOMContentLoaded", () => {
     boss.locked = !boss.locked;
     saveData();
     updateUI();
+
     const li = bossList.querySelector(`li[data-index="${idx}"]`);
-    if (li) {
-      li.classList.add("just-locked");
-      setTimeout(() => li.classList.remove("just-locked"), 600);
-    }
+    if (!li) return;
+
+    const incBtn = li.querySelector(".boss-increment-btn");
+    const decBtn = li.querySelector(".boss-decrement-btn");
+    const deleteBtn = li.querySelector(".boss-delete-btn");
+
+    [incBtn, decBtn, deleteBtn].forEach((btn) => {
+      if (btn) btn.disabled = boss.locked;
+    });
+
+    li.classList.add("just-locked");
+    setTimeout(() => li.classList.remove("just-locked"), 600);
   }
 
   function updateUI() {
@@ -89,24 +99,26 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="boss-death-count">Смертей: ${b.deaths}</span>
         </div>
         <div class="boss-button-group">
-          <button class="btn boss-increment-btn increment-btn" aria-label="+1 до ${
+          <button class="btn btn-red boss-increment-btn increment-btn" aria-label="+1 до ${
             b.name
           }" ${b.locked ? "disabled" : ""}>
             <img src="images/skull.svg" alt="+1">
           </button>
-          <button class="btn boss-decrement-btn decrement-btn" aria-label="-1 до ${
+          <button class="btn btn-blue boss-decrement-btn decrement-btn" aria-label="-1 до ${
             b.name
           }" ${b.locked ? "disabled" : ""}>
             <img src="images/heart.svg" alt="-1">
           </button>
-          <button class="btn boss-lock-btn" aria-label="${
+          <button class="btn btn-gray boss-lock-btn" aria-label="${
             b.locked ? "Розблокувати" : "Заблокувати"
           } ${b.name}">
             <img src="images/${b.locked ? "unlock" : "lock"}.svg" alt="${
         b.locked ? "Розблокувати" : "Заблокувати"
       }">
           </button>
-          <button class="btn boss-delete-btn" aria-label="Видалити ${b.name}">
+          <button class="btn btn-red boss-delete-btn" aria-label="Видалити ${
+            b.name
+          }">
             <img src="images/trash.svg" alt="Видалити">
           </button>
         </div>`;

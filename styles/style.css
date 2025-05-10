@@ -8,6 +8,19 @@
   --color-btn-add: #444;
   --color-locked: #555;
 }
+.btn-red {
+  --btn-color: var(--color-btn-inc);
+  --btn-shadow-color: rgba(255, 0, 0, 0.5);
+}
+.btn-blue {
+  --btn-color: var(--color-btn-dec);
+  --btn-shadow-color: rgba(70, 130, 180, 0.5);
+}
+.btn-gray {
+  --btn-color: var(--color-primary);
+  --btn-shadow-color: rgba(255, 80, 0, 0.5);
+}
+
 *,
 *::before,
 *::after {
@@ -40,7 +53,6 @@ body {
 h1,
 h2 {
   font-family: "Philosopher", serif;
-  text-shadow: 2px 2px 4px #000;
   margin-bottom: 1rem;
 }
 h1 {
@@ -69,6 +81,7 @@ h2 {
 }
 .button-group button {
   min-width: 133px;
+  font-size: 1.25rem;
 }
 .button-group button img {
   width: 2em;
@@ -83,34 +96,40 @@ h2 {
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: transform 0.1s ease;
+  transition: 0.2s ease;
   font-weight: bold;
   text-transform: uppercase;
-}
-.btn:active {
-  transform: scale(0.95);
+  font-family: "Philosopher", serif;
 }
 .increment-btn {
   background-color: var(--color-btn-inc);
+  border: 1px solid var(--color-btn-inc);
   color: #fff;
-}
-.increment-btn:hover:not(:disabled) {
-  background-color: #b22222;
 }
 .decrement-btn {
   background-color: var(--color-btn-dec);
+  border: 1px solid var(--color-btn-dec);
   color: #fff;
-}
-.decrement-btn:hover:not(:disabled) {
-  background-color: #5a9bd8;
 }
 .add-btn {
   background-color: var(--color-btn-add);
   color: #fff;
+  transition: 0.2s ease;
+  border: 1px solid var(--color-btn-add);
 }
-.add-btn:hover {
-  background-color: #666;
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
 }
+
+.btn:not(:disabled):hover,
+.btn:not(:disabled):active {
+  background-color: var(--btn-color);
+  border-color: var(--btn-color);
+  box-shadow: 0 0 0 2px var(--btn-color), 0 0 5px 4px var(--btn-shadow-color);
+}
+
 .add-boss-form {
   display: flex;
   gap: 0.5rem;
@@ -185,15 +204,8 @@ h2 {
 .boss-lock-btn {
   background: var(--color-locked);
 }
-.boss-lock-btn:hover {
-  background: #777;
-}
 .boss-delete-btn {
   background: #700;
-  color: #fff;
-}
-.boss-delete-btn:hover {
-  background: #900;
 }
 
 .boss-item.locked {
