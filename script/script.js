@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </button>
           <button class="btn btn-red boss-delete-btn" aria-label="Видалити ${
             b.name
-          }">
+          }" ${b.locked ? "disabled" : ""}>
             <img src="images/trash.svg" alt="Видалити">
           </button>
         </div>`;
