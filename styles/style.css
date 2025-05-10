@@ -232,6 +232,11 @@ h2 {
   transform: rotate(-5deg);
   border-radius: 25%;
 }
+.boss-item.drag-over {
+  transition: none;
+  outline: 2px dashed var(--color-primary);
+  outline-offset: 3px;
+}
 
 @keyframes pulseLocked {
   0% {

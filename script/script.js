@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.className = "boss-item" + (b.locked ? " locked" : "");
       li.dataset.index = i;
+      li.draggable = true;
       li.innerHTML = `
         <div class="boss-info">
           <span class="boss-name">${b.name}</span>
@@ -149,6 +150,45 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch {}
     return { totalDeaths: 0, bosses: [] };
   }
+  let dragSrcIndex = null;
+
+  bossList.addEventListener("dragstart", (e) => {
+    const li = e.target.closest(".boss-item");
+    if (!li) return;
+    dragSrcIndex = Number(li.dataset.index);
+    e.dataTransfer.effectAllowed = "move";
+  });
+
+  bossList.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    const li = e.target.closest(".boss-item");
+    if (li) li.classList.add("drag-over");
+  });
+
+  bossList.addEventListener("dragleave", (e) => {
+    const li = e.target.closest(".boss-item");
+    if (li) li.classList.remove("drag-over");
+  });
+
+  bossList.addEventListener("dragend", (e) => {
+    bossList.querySelectorAll(".boss-item.drag-over").forEach((li) => {
+      li.classList.remove("drag-over");
+    });
+  });
+
+  bossList.addEventListener("drop", (e) => {
+    const li = e.target.closest(".boss-item");
+    if (!li || dragSrcIndex === null) return;
+    const dropIndex = Number(li.dataset.index);
+    if (dropIndex !== dragSrcIndex) {
+      const [moved] = data.bosses.splice(dragSrcIndex, 1);
+      data.bosses.splice(dropIndex, 0, moved);
+      saveData();
+      updateUI();
+    }
+    li.classList.remove("drag-over");
+    dragSrcIndex = null;
+  });
 
   function saveData() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
