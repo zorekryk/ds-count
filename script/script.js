@@ -69,6 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
       `Ви дійсно хочете видалити боса “${boss.name}”? Цю дію не можна буде скасувати.`
     );
     if (!ok) return;
+    const deathsToRemove = data.bosses[idx].deaths;
+    data.totalDeaths -= deathsToRemove;
     data.bosses.splice(idx, 1);
     saveData();
     updateUI();
@@ -115,26 +117,29 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="boss-death-count">Смертей: ${b.deaths}</span>
         </div>
         <div class="boss-button-group">
-          <button class="btn btn-red boss-increment-btn increment-btn" aria-label="+1 до ${
-            b.name
-          }" ${b.locked ? "disabled" : ""}>
+          <button
+            class="btn btn-red boss-increment-btn increment-btn"
+            aria-label="+1 до ${b.name}"
+            ${b.locked ? "disabled" : ""}>
             <img src="images/skull.svg" alt="+1">
           </button>
-          <button class="btn btn-blue boss-decrement-btn decrement-btn" aria-label="-1 до ${
-            b.name
-          }" ${b.locked ? "disabled" : ""}>
+          <button
+            class="btn btn-blue boss-decrement-btn decrement-btn"
+            aria-label="-1 до ${b.name}"
+            ${b.locked ? "disabled" : ""}>
             <img src="images/heart.svg" alt="-1">
           </button>
-          <button class="btn btn-gray boss-lock-btn" aria-label="${
-            b.locked ? "Розблокувати" : "Заблокувати"
-          } ${b.name}">
-            <img src="images/${b.locked ? "unlock" : "lock"}.svg" alt="${
-        b.locked ? "Розблокувати" : "Заблокувати"
-      }">
+          <button
+            class="btn btn-gray boss-lock-btn"
+            aria-label="${b.locked ? "Розблокувати" : "Заблокувати"}
+            ${b.name}">
+            <img src="images/${b.locked ? "unlock" : "lock"}.svg"
+            alt="${b.locked ? "Розблокувати" : "Заблокувати"}">
           </button>
-          <button class="btn btn-red boss-delete-btn" aria-label="Видалити ${
-            b.name
-          }" ${b.locked ? "disabled" : ""}>
+          <button
+          class="btn btn-red boss-delete-btn"
+          aria-label="Видалити ${b.name}"
+          ${b.locked ? "disabled" : ""}>
             <img src="images/trash.svg" alt="Видалити">
           </button>
         </div>`;
