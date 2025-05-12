@@ -177,9 +177,17 @@ h2 {
   gap: 0.5rem;
 }
 .boss-name {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: bold;
   display: block;
+  background: none;
+  color: white;
+  border: none;
+  width: 250px;
+  outline: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .boss-death-count {
   color: var(--color-death);
@@ -217,11 +225,11 @@ h2 {
 .boss-item.locked .boss-name {
   color: #888;
   position: relative;
-  /* text-decoration: line-through;
+  text-decoration: line-through;
   text-decoration-color: var(--color-death);
-  text-decoration-thickness: 2px; */
+  text-decoration-thickness: 2px;
 }
-.boss-item.locked .boss-name::after {
+/* .boss-item.locked .boss-name::after {
   content: "";
   position: absolute;
   top: 45%;
@@ -231,7 +239,7 @@ h2 {
   background: var(--color-primary);
   transform: rotate(-5deg);
   border-radius: 25%;
-}
+} */
 .boss-item.drag-over {
   transition: none;
   outline: 2px dashed var(--color-primary);

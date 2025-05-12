@@ -37,6 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target.classList.contains("boss-lock-btn")) toggleLock(idx);
   });
 
+  bossList.addEventListener("input", (e) => {
+    if (!e.target.classList.contains("boss-name")) return;
+    const li = e.target.closest(".boss-item");
+    const idx = +li.dataset.index;
+    if (data.bosses[idx].locked) return;
+    data.bosses[idx].name = e.target.value;
+    saveData();
+  });
+
   function changeDeaths(bossIdx, delta) {
     if (bossIdx === null) {
       const newTotal = data.totalDeaths + delta;
@@ -77,8 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const incBtn = li.querySelector(".boss-increment-btn");
     const decBtn = li.querySelector(".boss-decrement-btn");
     const deleteBtn = li.querySelector(".boss-delete-btn");
+    const bossName = li.querySelector(".boss-name");
 
-    [incBtn, decBtn, deleteBtn].forEach((btn) => {
+    [(incBtn, decBtn, deleteBtn, bossName)].forEach((btn) => {
       if (btn) btn.disabled = boss.locked;
     });
 
@@ -93,10 +103,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.className = "boss-item" + (b.locked ? " locked" : "");
       li.dataset.index = i;
-      li.draggable = true;
+      // li.draggable = true;
       li.innerHTML = `
         <div class="boss-info">
-          <span class="boss-name">${b.name}</span>
+        <input
+          type="text"
+          class="boss-name"
+          value="${b.name}"
+          title="${b.name}"
+          ${b.locked ? "disabled" : ""}/>
           <span class="boss-death-count">Смертей: ${b.deaths}</span>
         </div>
         <div class="boss-button-group">
@@ -153,6 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let dragSrcIndex = null;
 
   bossList.addEventListener("dragstart", (e) => {
+    if (e.target.tagName === "INPUT") {
+      e.preventDefault();
+      return;
+    }
     const li = e.target.closest(".boss-item");
     if (!li) return;
     dragSrcIndex = Number(li.dataset.index);
